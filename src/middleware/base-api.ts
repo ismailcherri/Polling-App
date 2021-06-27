@@ -25,7 +25,7 @@ const baseApi: ThunkMiddlewareFor<unknown> =
       return next(action);
     }
 
-    const { url, method, data, onStart, onSuccess, onError } = action.payload;
+    const { url, method, data, onStart, onSuccess, onFail } = action.payload;
 
     if (onStart) {
       dispatch({ type: onStart });
@@ -42,10 +42,14 @@ const baseApi: ThunkMiddlewareFor<unknown> =
       });
       dispatch(apiCallSuccess(response.data));
 
-      if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
+      if (onSuccess) {
+        dispatch({ type: onSuccess, payload: response.data });
+      }
     } catch (error) {
       dispatch(apiCallFailed(error.message));
-      if (onError) dispatch({ type: onError, payload: error.message });
+      if (onFail) {
+        dispatch({ type: onFail, payload: error.message });
+      }
     }
   };
 
