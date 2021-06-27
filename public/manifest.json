@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Poll API",
+  "name": "A sample application for creating and voting on various subjects",
   "icons": [
     {
       "src": "favicon.ico",
