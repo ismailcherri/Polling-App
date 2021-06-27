@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from 'src/app/store';
 
 export interface ChoiceDto {
   choice: string;
@@ -72,5 +73,13 @@ export const {
   startLoading,
   endLoading,
 } = questionSlice.actions;
+
+export const selectStatus = (state: RootState) => state.question.status;
+export const selectQuestions = (state: RootState) => state.question.list;
+export const selectQuestion = (state: RootState) =>
+  state.question.currentQuestion;
+
+export const selectQuestionTotalVotes = (state: RootState) =>
+  state.question.currentQuestion.choices.reduce((acc, a) => acc + a.votes, 0);
 
 export default questionSlice.reducer;

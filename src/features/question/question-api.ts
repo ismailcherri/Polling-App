@@ -10,7 +10,7 @@ import {
   voteChoice,
 } from 'src/features/question/question-slice';
 
-export const loadQuestionsAsync = (): AppThunk<any> => (dispatch) =>
+export const loadQuestionsAsync = (): AppThunk => (dispatch) =>
   dispatch(
     apiCallBegan({
       url: '/questions',
@@ -22,7 +22,7 @@ export const loadQuestionsAsync = (): AppThunk<any> => (dispatch) =>
   );
 
 export const loadQuestionAsync =
-  (url: string): AppThunk<any> =>
+  (url: string): AppThunk =>
   (dispatch) =>
     dispatch(
       apiCallBegan({
@@ -35,7 +35,7 @@ export const loadQuestionAsync =
     );
 
 export const addQuestionAsync =
-  (question: CreateQuestionDto): AppThunk<any> =>
+  (question: CreateQuestionDto): AppThunk =>
   (dispatch) =>
     dispatch(
       apiCallBegan({
@@ -49,7 +49,7 @@ export const addQuestionAsync =
     );
 
 export const voteChoiceAsync =
-  (url: string): AppThunk<any> =>
+  (url: string): AppThunk =>
   (dispatch) =>
     dispatch(
       apiCallBegan({
