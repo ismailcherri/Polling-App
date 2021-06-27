@@ -6,25 +6,18 @@ import { useSelector } from 'react-redux';
 import {
   selectQuestion,
   selectQuestionTotalVotes,
-  selectStatus,
 } from 'src/features/question/question-slice';
 import Choice from 'src/app/components/choice';
-import VoteButton from 'src/app/components/vote-button';
 
 function QuestionDetail() {
   let location = useLocation();
   const dispatch = useAppDispatch();
   const currentQuestion = useSelector(selectQuestion);
   const totalVotes = useSelector(selectQuestionTotalVotes);
-  const loadingStatus = useSelector(selectStatus);
 
   useEffect(() => {
     dispatch(loadQuestionAsync(location.pathname));
   }, [dispatch, location]);
-
-  if (loadingStatus !== 'idle') {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>
@@ -34,7 +27,6 @@ function QuestionDetail() {
         {currentQuestion.choices.map((choice) => (
           <div key={choice.url}>
             <Choice currentChoice={choice} totalVotes={totalVotes} />
-            <VoteButton url={choice.url} />
           </div>
         ))}
       </div>

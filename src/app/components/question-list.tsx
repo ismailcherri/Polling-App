@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   selectQuestions,
   selectStatus,
 } from 'src/features/question/question-slice';
 import { useAppDispatch } from 'src/app/hooks';
 import { loadQuestionsAsync } from 'src/features/question/question-api';
-import Vote from 'src/app/components/vote';
-import Published from 'src/app/components/published';
+import Question from 'src/app/components/question';
 
 function QuestionList() {
   const dispatch = useAppDispatch();
@@ -25,17 +23,13 @@ function QuestionList() {
   return (
     <>
       <h3>Questions</h3>
-      {list.map((question) => (
-        <div key={question.url}>
-          <Link to={question.url}>
-            <h3>{question.question}</h3>
-          </Link>
-          <p>
-            <Published publishDateString={question.published_at} />{' '}
-            <Vote votes={question.choices.length} />
-          </p>
-        </div>
-      ))}
+      <div className="d-grid">
+        {list.map((question) => (
+          <div key={question.url}>
+            <Question {...question} />
+          </div>
+        ))}
+      </div>
     </>
   );
 }
