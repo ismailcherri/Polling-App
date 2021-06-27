@@ -1,0 +1,61 @@
+/* Variables */
+* {
+  box-sizing: border-box;
+}
+html {
+  padding: 0;
+  margin: 0;
+  background-color: #e7e7e7;
+}
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #e7e7e7;
+}
+.container {
+  max-width: 100%;
+  margin: auto;
+  padding: 0 1rem;
+}
+@media (min-width: 62.25rem) {
+  .container {
+    max-width: 45.5rem;
+  }
+}
+@media (min-width: 85rem) {
+  .container {
+    max-width: 62.25rem;
+  }
+}
+@media (min-width: 120rem) {
+  .container {
+    max-width: 85rem;
+  }
+}
+.d-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-gap: 0.5rem;
+  align-items: flex-start;
+}
+h1 {
+  margin: 0.5rem 0;
+}
+h2 {
+  margin: 0.5rem 0;
+}
+h3 {
+  margin: 0.5rem 0;
+}
+h4 {
+  margin: 0.5rem 0;
+}
+h5 {
+  margin: 0.5rem 0;
+}
+h6 {
+  margin: 0.5rem 0;
+}
+p {
+  margin: 0.5rem 0;
+}

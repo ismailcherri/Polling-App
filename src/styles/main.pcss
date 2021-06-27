@@ -1,0 +1,66 @@
+/* Variables */
+:root {
+  --maing-bg-color: #e7e7e7;
+  --default-padding: 0.5rem;
+  --media-break-point-xs: 20rem;
+  --media-break-point-sm: 45.5rem;
+  --media-break-point-md: 62.25rem;
+  --media-break-point-lg: 85rem;
+}
+
+@custom-media --viewport-sm (width >= 45.5rem);
+@custom-media --viewport-md (width >= 62.25rem);
+@custom-media --viewport-lg (width >= 85rem);
+@custom-media --viewport-xl (width >= 120rem);
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--maing-bg-color);
+}
+
+.container {
+  max-width: 100%;
+  margin: auto;
+  padding: 0 calc(var(--default-padding) * 2);
+}
+
+@media (--viewport-md) {
+  .container {
+    max-width: var(--media-break-point-sm);
+  }
+}
+
+@media (--viewport-lg) {
+  .container {
+    max-width: var(--media-break-point-md);
+  }
+}
+
+@media (--viewport-xl) {
+  .container {
+    max-width: var(--media-break-point-lg);
+  }
+}
+
+.d-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-gap: 0.5rem;
+  align-items: flex-start;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: var(--default-padding) 0;
+}
