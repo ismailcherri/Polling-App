@@ -35,5 +35,6 @@ run `yarn test` or `npm run test` to run the interactive test runner powered by 
 * The app is a demonstration of the ability of Redux store to provide a stable and consistent 
 state management. It uses middleware to provide Async API actions.  
 * Different CSS techniques were used to demonstrate the flexibility of ReactJS to deal either with 
-global CSS rules or scoped ones.  
+global CSS rules or scoped ones.
+* It uses create-react-app default service-worker implementation.
 * A plan to E2E tests using [Puppeteer](https://github.com/puppeteer/puppeteer) is planned (hopefully) 
