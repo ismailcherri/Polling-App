@@ -1,20 +1,13 @@
 import axios from 'axios';
 import baseApi, { apiCallBegan } from './base-api';
-import { configureStore, createReducer } from '@reduxjs/toolkit';
-import { EnhancedStore } from '@reduxjs/toolkit/src/configureStore';
+import store from 'src/features/question/mock-store';
 
 describe('baseApi', () => {
   let axiosSpy: jest.SpyInstance;
-  let store: EnhancedStore;
 
   beforeEach(() => {
     axiosSpy = jest.spyOn(axios, 'request');
-    store = configureStore({
-      reducer: {
-        dummyReducer: createReducer({}, () => null),
-      },
-      middleware: [baseApi],
-    });
+    store.clearActions();
   });
 
   it('should not call axios for non-api actions', () => {

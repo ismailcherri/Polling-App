@@ -1,6 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import QuestionList from 'src/app/components/question-list';
 import QuestionDetail from 'src/app/components/question-detail';
 import CreateQuestion from 'src/app/components/create-question';
@@ -17,11 +16,11 @@ function App() {
           Add Question
         </Link>
       </h2>
-      <Switch>
-        <Route exact path="/" children={<QuestionList />} />
-        <Route path="/create" children={<CreateQuestion />} />
-        <Route path="/:url" children={<QuestionDetail />} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<QuestionList />} />
+        <Route path="/create" element={<CreateQuestion />} />
+        <Route path="/questions/:url" element={<QuestionDetail />} />
+      </Routes>
     </div>
   );
 }

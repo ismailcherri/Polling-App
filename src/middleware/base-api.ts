@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { createAction, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkMiddlewareFor } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 
@@ -46,9 +46,12 @@ const baseApi: ThunkMiddlewareFor<unknown> =
         dispatch({ type: onSuccess, payload: response.data });
       }
     } catch (error) {
-      dispatch(apiCallFailed(error.message));
-      if (onFail) {
+      if (error instanceof AxiosError) {
         dispatch({ type: onFail, payload: error.message });
+
+        if (onFail) {
+          dispatch({ type: onFail, payload: error.message });
+        }
       }
     }
   };

@@ -8,30 +8,27 @@ import questionReducer, {
   startLoading,
   voteChoice,
 } from 'src/features/question/question-slice';
-import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
+import store from 'src/features/question/mock-store';
 
 describe('Question Slice', () => {
-  let store: EnhancedStore;
   beforeEach(() => {
-    store = configureStore({
-      reducer: { question: questionReducer },
-    });
+    store.clearActions();
   });
 
   describe('startLoading', () => {
     it('should set status to loading', () => {
       store.dispatch(startLoading());
-      expect(store.getState().question.status).toEqual('loading');
+      expect(store.getState().status).toEqual('loading');
     });
   });
 
   describe('endLoading', () => {
     it('should set status to idle', () => {
       store.dispatch(startLoading());
-      expect(store.getState().question.status).toEqual('loading');
+      expect(store.getState().status).toEqual('loading');
 
       store.dispatch(endLoading());
-      expect(store.getState().question.status).toEqual('idle');
+      expect(store.getState().status).toEqual('idle');
     });
   });
 
@@ -43,7 +40,7 @@ describe('Question Slice', () => {
       ];
       store.dispatch(loadQuestions(expected));
 
-      expect(store.getState().question.list).toEqual(expected);
+      expect(store.getState().list).toEqual(expected);
     });
   });
 
@@ -57,7 +54,7 @@ describe('Question Slice', () => {
       };
       store.dispatch(loadQuestion(expected));
 
-      expect(store.getState().question.currentQuestion).toEqual(expected);
+      expect(store.getState().currentQuestion).toEqual(expected);
     });
   });
 
@@ -71,7 +68,7 @@ describe('Question Slice', () => {
       };
       store.dispatch(addQuestion(expected));
 
-      expect(store.getState().question.list).toContain(expected);
+      expect(store.getState().list).toContain(expected);
     });
   });
 
@@ -95,10 +92,10 @@ describe('Question Slice', () => {
         published_at: '',
       };
       store.dispatch(addQuestion(expected));
-      expect(store.getState().question.list).toContain(expected);
+      expect(store.getState().list).toContain(expected);
 
       store.dispatch(loadQuestion(expected));
-      expect(store.getState().question.currentQuestion).toEqual(expected);
+      expect(store.getState().currentQuestion).toEqual(expected);
 
       const newChoice: ChoiceDto = {
         choice: 'a choice',
@@ -106,9 +103,7 @@ describe('Question Slice', () => {
         votes: 1,
       };
       store.dispatch(voteChoice(newChoice));
-      expect(
-        store.getState().question.currentQuestion.choices[0].votes,
-      ).toEqual(1);
+      expect(store.getState().currentQuestion.choices[0].votes).toEqual(1);
     });
   });
 });

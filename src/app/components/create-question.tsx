@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'src/app/hooks';
 import { addQuestionAsync } from 'src/features/question/question-api';
 
 function CreateQuestion() {
   const dispatch = useAppDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [choices, setChoices] = useState<string[]>(['']);
   const [question, setQuestion] = useState<string>('');
 
@@ -26,7 +26,7 @@ function CreateQuestion() {
   const handleFormSubmit = async () => {
     const filteredChoices = choices.filter((choice) => choice !== '');
     await dispatch(addQuestionAsync({ question, choices: filteredChoices }));
-    history.push('/');
+    navigate('/');
   };
 
   return (
