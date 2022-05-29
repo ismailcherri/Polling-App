@@ -25,7 +25,7 @@ export interface QuestionState {
   status: 'idle' | 'loading' | 'failed';
 }
 
-const initialState: QuestionState = {
+export const initialState: QuestionState = {
   list: [],
   currentQuestion: { choices: [], question: '', url: '', published_at: '' },
   status: 'idle',
@@ -55,7 +55,7 @@ export const questionSlice = createSlice({
     },
     voteChoice: (state, action: PayloadAction<ChoiceDto>) => {
       const choice = state.currentQuestion.choices.find(
-        (choice) => choice.url === action.payload.url,
+        (targetChoice) => targetChoice.url === action.payload.url,
       );
       if (choice) {
         choice.votes = action.payload.votes;

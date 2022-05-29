@@ -2,33 +2,36 @@ import questionReducer, {
   addQuestion,
   ChoiceDto,
   endLoading,
+  initialState,
   loadQuestion,
   loadQuestions,
   QuestionDto,
   startLoading,
   voteChoice,
 } from 'src/features/question/question-slice';
-import store from 'src/features/question/mock-store';
+import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 
 describe('Question Slice', () => {
+  let store: EnhancedStore;
   beforeEach(() => {
-    store.clearActions();
+    store = configureStore({
+      reducer: { question: questionReducer },
+    });
   });
 
   describe('startLoading', () => {
     it('should set status to loading', () => {
-      store.dispatch(startLoading());
-      expect(store.getState().status).toEqual('loading');
+      const actual = questionReducer(initialState, startLoading());
+
+      expect(actual.status).toEqual('loading');
     });
   });
 
   describe('endLoading', () => {
     it('should set status to idle', () => {
-      store.dispatch(startLoading());
-      expect(store.getState().status).toEqual('loading');
+      const actual = questionReducer(initialState, endLoading());
 
-      store.dispatch(endLoading());
-      expect(store.getState().status).toEqual('idle');
+      expect(actual.status).toEqual('idle');
     });
   });
 
@@ -38,9 +41,9 @@ describe('Question Slice', () => {
         { question: '', url: '', choices: [], published_at: '' },
         { question: '', url: '', choices: [], published_at: '' },
       ];
-      store.dispatch(loadQuestions(expected));
+      const actual = questionReducer(initialState, loadQuestions(expected));
 
-      expect(store.getState().list).toEqual(expected);
+      expect(actual.list).toEqual(expected);
     });
   });
 
@@ -52,9 +55,9 @@ describe('Question Slice', () => {
         choices: [],
         published_at: '',
       };
-      store.dispatch(loadQuestion(expected));
+      const actual = questionReducer(initialState, loadQuestion(expected));
 
-      expect(store.getState().currentQuestion).toEqual(expected);
+      expect(actual.currentQuestion).toEqual(expected);
     });
   });
 
@@ -66,9 +69,9 @@ describe('Question Slice', () => {
         choices: [],
         published_at: '',
       };
-      store.dispatch(addQuestion(expected));
+      const actual = questionReducer(initialState, addQuestion(expected));
 
-      expect(store.getState().list).toContain(expected);
+      expect(actual.list).toContain(expected);
     });
   });
 
@@ -91,19 +94,19 @@ describe('Question Slice', () => {
         choices: [choice1, choice2],
         published_at: '',
       };
-      store.dispatch(addQuestion(expected));
-      expect(store.getState().list).toContain(expected);
+      let actual = questionReducer(initialState, addQuestion(expected));
+      expect(actual.list).toContain(expected);
 
-      store.dispatch(loadQuestion(expected));
-      expect(store.getState().currentQuestion).toEqual(expected);
+      actual = questionReducer(actual, loadQuestion(expected));
+      expect(actual.currentQuestion).toEqual(expected);
 
       const newChoice: ChoiceDto = {
         choice: 'a choice',
         url: 'choice_url_1',
         votes: 1,
       };
-      store.dispatch(voteChoice(newChoice));
-      expect(store.getState().currentQuestion.choices[0].votes).toEqual(1);
+      actual = questionReducer(actual, voteChoice(newChoice));
+      expect(actual.currentQuestion.choices[0].votes).toEqual(1);
     });
   });
 });

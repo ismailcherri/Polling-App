@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { createAction, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkMiddlewareFor } from '@reduxjs/toolkit/dist/getDefaultMiddleware';
 
@@ -15,7 +15,7 @@ export const apiCallBegan = createAction<ApiBeganAction>('baseApi/callBegan');
 export const apiCallSuccess = createAction<PayloadAction>(
   'baseApi/callSuccess',
 );
-export const apiCallFailed = createAction<PayloadAction>('baseApi/callFailed');
+export const apiCallFailed = createAction<string>('baseApi/callFailed');
 
 const baseApi: ThunkMiddlewareFor<unknown> =
   ({ dispatch }) =>
@@ -46,8 +46,8 @@ const baseApi: ThunkMiddlewareFor<unknown> =
         dispatch({ type: onSuccess, payload: response.data });
       }
     } catch (error) {
-      if (error instanceof AxiosError) {
-        dispatch({ type: onFail, payload: error.message });
+      if (error instanceof Error) {
+        dispatch(apiCallFailed(error.message));
 
         if (onFail) {
           dispatch({ type: onFail, payload: error.message });

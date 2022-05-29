@@ -1,10 +1,6 @@
 // Mock store setup
-import {
-  AnyAction,
-  getDefaultMiddleware,
-  Middleware,
-  ThunkDispatch,
-} from '@reduxjs/toolkit';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
 import { RootState } from 'src/app/store';
 import baseApi from 'src/middleware/base-api';
 import createMockStore, {
@@ -20,9 +16,8 @@ const initialState: QuestionState = {
 };
 
 type DispatchExts = ThunkDispatch<RootState, undefined, AnyAction>;
-const middlewares: Array<Middleware> = getDefaultMiddleware().concat(baseApi);
 const mockStoreCreator: MockStoreCreator<QuestionState, DispatchExts> =
-  createMockStore<QuestionState, DispatchExts>(middlewares);
+  createMockStore<QuestionState, DispatchExts>([baseApi, thunk]);
 const mockStore: MockStoreEnhanced<QuestionState, DispatchExts> =
   mockStoreCreator(initialState);
 
