@@ -25,7 +25,7 @@ function CreateQuestion() {
   };
 
   const handleFormSubmit = async () => {
-    var filteredChoices = choices.filter((choice) => choice !== '');
+    const filteredChoices = choices.filter((choice) => choice !== '');
     await dispatch(addQuestionAsync({ question, choices: filteredChoices }));
     navigate('/');
   };
