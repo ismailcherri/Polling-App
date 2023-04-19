@@ -34,7 +34,7 @@ const baseApi: ThunkMiddlewareFor<unknown> =
     next(action);
 
     try {
-      let response = await axios.request({
+      var response = await axios.request({
         baseURL: process.env.REACT_APP_API_URL,
         url,
         method,
