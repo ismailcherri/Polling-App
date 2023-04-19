@@ -10,6 +10,7 @@ function CreateQuestion() {
   const [question, setQuestion] = useState<string>('');
 
   const handleChoiceChange = (value: string, index: number) => {
+    console.log('value', eval(value));
     choices[index] = value;
     setChoices([...choices]);
   };
@@ -24,7 +25,7 @@ function CreateQuestion() {
   };
 
   const handleFormSubmit = async () => {
-    const filteredChoices = choices.filter((choice) => choice !== '');
+    var filteredChoices = choices.filter((choice) => choice !== '');
     await dispatch(addQuestionAsync({ question, choices: filteredChoices }));
     navigate('/');
   };
