@@ -4,7 +4,12 @@ import QuestionList from 'src/app/components/question-list';
 import QuestionDetail from 'src/app/components/question-detail';
 import CreateQuestion from 'src/app/components/create-question';
 
-function App() {
+interface Props {
+  appName: string
+}
+
+function App(props: Props) {
+  const { appName } = props;
   return (
     <div className="container">
       <h2>
